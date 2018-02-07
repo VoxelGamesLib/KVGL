@@ -22,7 +22,6 @@ class ExampleGame : AbstractGame(ExamplePlugin.GAMEMODE) {
             +createPhase<ExamplePhase>()
         }
 
-
         buildPhases {
             +createPhase<LobbyWithVotePhase> {
                 it.addFeature(createFeature<TeamSelectFeature>(it))
