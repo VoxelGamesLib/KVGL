@@ -1,0 +1,15 @@
+package com.voxelgameslib.kvgl
+
+import com.voxelgameslib.voxelgameslib.feature.Feature
+import com.voxelgameslib.voxelgameslib.feature.features.MapFeature
+import kotlin.reflect.KClass
+
+// Look into changing base method names
+var MapFeature.shouldUnload : Boolean
+    get() = shouldUnload()
+    set(value) = setShouldUnload(value)
+
+
+fun depend(vararg clazz : KClass<out Feature>) : Array<Class<Any>> { // Not sure why this doesn't coerce the type automatically...
+    return clazz.map { it.java }.toTypedArray() as Array<Class<Any>>
+}

@@ -1,0 +1,77 @@
+group = 'com.voxelgameslib'
+version = '1.0'
+
+buildscript {
+
+    ext {
+        versionShadow = '2.0.1'
+        versionKotlin = '1.2.21'
+    }
+
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionKotlin"
+        classpath "com.github.jengelman.gradle.plugins:shadow:$versionShadow"
+    }
+
+}
+
+apply plugin: 'idea'
+apply plugin: 'kotlin'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    // this is seriously annoying to have to redeclare, we should seriously fix the project tree
+    maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
+    maven { url "https://oss.sonatype.org/content/groups/public/" }
+    maven { url "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url "https://raw.githubusercontent.com/allanmc/JSkills/mvn-repo/" }
+    maven { url "http://dl.bintray.com/etienne/java-utilities" }
+    maven { url "http://repo.bstats.org/content/repositories/releases/" }
+    maven { url "http://repo.dmulloy2.net/content/groups/public/" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "http://repo.onarandombox.com/content/groups/public/" }
+    maven { url "http://repo.inventivetalent.org/content/repositories/snapshots/" }
+
+}
+
+// I'm sure there's a method to copy all compileOnly dependencies to the testCompile set
+dependencies {
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testCompile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    compileOnly group: 'org.spigotmc', name: 'spigot', version: '1.12.1-R0.1-SNAPSHOT'
+    testCompile group: 'org.spigotmc', name: 'spigot', version: '1.12.1-R0.1-SNAPSHOT'
+
+    compileOnly "com.voxelgameslib:voxelgameslib:+"
+    testCompile "com.voxelgameslib:voxelgameslib:+"
+
+}
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
