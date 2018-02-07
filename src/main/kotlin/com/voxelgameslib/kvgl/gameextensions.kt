@@ -29,19 +29,42 @@ inline fun <reified T : Feature> Game.createFeature(phase: Phase): T {
 }
 
 
-inline fun AbstractGame.buildPhases(first: Phase, block: PhaseBuilder.() -> Unit) {
+inline fun AbstractGame.buildPhases(first: Phase, block: PhaseBuilder0.() -> Unit) {
     activePhase = first
-    PhaseBuilder(first).apply(block)
+    PhaseBuilder0(first).apply(block)
+}
+
+inline fun AbstractGame.buildPhases(block: PhaseBuilder1.() -> Unit) {
+    PhaseBuilder1(this).apply(block)
 }
 
 
-class PhaseBuilder @PublishedApi internal constructor(first: Phase) { // yes, I know its ugly..
+class PhaseBuilder0 @PublishedApi internal constructor(first: Phase) { // yes, I know its ugly..
 
     var prev = first
+
 
     operator fun Phase.unaryPlus() {
         prev.setNextPhase(this)
         prev = this
+    }
+
+}
+
+class PhaseBuilder1 @PublishedApi internal constructor(val absGame : AbstractGame) {
+
+    private var prev : Phase? = null
+
+
+    operator fun Phase.unaryPlus() {
+        if (prev == null) {
+            prev = this
+            absGame.activePhase = this
+        }
+        else {
+            prev?.setNextPhase(this)
+            prev = this
+        }
     }
 
 }

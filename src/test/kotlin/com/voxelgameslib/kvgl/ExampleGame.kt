@@ -17,10 +17,20 @@ class ExampleGame : AbstractGame(ExamplePlugin.GAMEMODE) {
             it.addFeature(createFeature<TeamSelectFeature>(it))
         }
 
-        buildPhases(votePhase) { // will set votePhase to the active phase, and build the phase tree with the `+Phase`
+        buildPhases(votePhase) {
             +createPhase<GracePhase>()
             +createPhase<ExamplePhase>()
         }
+
+
+        buildPhases {
+            +createPhase<LobbyWithVotePhase> {
+                it.addFeature(createFeature<TeamSelectFeature>(it))
+            }
+            +createPhase<GracePhase>()
+            +createPhase<ExamplePhase>()
+        }
+
 
         loadMap()
     }
