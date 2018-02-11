@@ -2,7 +2,6 @@ group = 'com.voxelgameslib'
 version = '1.0'
 
 buildscript {
-
     ext {
         versionShadow = '2.0.1'
         versionKotlin = '1.2.21'
@@ -20,17 +19,18 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versionKotlin"
         classpath "com.github.jengelman.gradle.plugins:shadow:$versionShadow"
     }
-
 }
 
 apply plugin: 'idea'
 apply plugin: 'kotlin'
+apply plugin: 'maven'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
     mavenLocal()
     mavenCentral()
 
+    maven { url "https://voxelgameslib.github.io/VoxelGamesLibv2/mvn-repo" }
     // this is seriously annoying to have to redeclare, we should seriously fix the project tree
     maven { url "https://hub.spigotmc.org/nexus/content/groups/public/" }
     maven { url "https://oss.sonatype.org/content/groups/public/" }
@@ -42,7 +42,6 @@ repositories {
     maven { url "http://repo.maven.apache.org/maven2" }
     maven { url "http://repo.onarandombox.com/content/groups/public/" }
     maven { url "http://repo.inventivetalent.org/content/repositories/snapshots/" }
-
 }
 
 // I'm sure there's a method to copy all compileOnly dependencies to the testCompile set
@@ -53,11 +52,9 @@ dependencies {
     compileOnly group: 'org.spigotmc', name: 'spigot', version: '1.12.1-R0.1-SNAPSHOT'
     testCompile group: 'org.spigotmc', name: 'spigot', version: '1.12.1-R0.1-SNAPSHOT'
 
-    compileOnly "com.voxelgameslib:voxelgameslib:+"
-    testCompile "com.voxelgameslib:voxelgameslib:+"
-
+    compileOnly group: 'com.voxelgameslib', name: 'voxelgameslib', version: '2.0-SNAPSHOT', changing: true
+    testCompile group: 'com.voxelgameslib', name: 'voxelgameslib', version: '2.0-SNAPSHOT', changing: true
 }
-
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -74,4 +71,39 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
+task createPom() {
+    pom {
+        project {
+            groupId 'com.voxelgameslib'
+            artifactId 'kvgl'
+            version version
+
+            inceptionYear '2018'
+            licenses {
+                license {
+                    name 'MIT'
+                    url 'https://github.com/VoxelGamesLib/KVGL/blob/master/LICENSE'
+                    distribution 'repo'
+                }
+            }
+
+            issueManagement {
+                system 'GitHub Issues'
+                url 'https://github.com/VoxelGamesLib/KVGL/issues'
+            }
+
+            scm {
+                connection 'scm:git@github.com:VoxelGamesLib/KVGL.git'
+                developerConnection 'scm:git@github.com:VoxelGamesLib/KVGL.git'
+                url 'https://github.com/VoxelGamesLib/KVGL'
+            }
+        }
+    }.writeTo("pom.xml")
 }
