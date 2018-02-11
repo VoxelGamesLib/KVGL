@@ -12,7 +12,7 @@ git config --global user.name "VoxelGamesLibBot"
 # copy over stuff we want to deploy
 echo "copy stuff to deploy"
 cp -R build/dependencyUpdates/. deploy-stuff/KVGL
-cp -R build/docs/javadoc/. deploy-stuff/KVGL
+cp -R build/docs/javadoc/. deploy-stuff/KVGL/javadoc
 cp -R build/reports/. deploy-stuff/KVGL
 cp -R build/libs/. deploy-stuff/KVGL
 
