@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "clean deploy filder"
+echo "clean deploy folder"
 rm -rf deploy-stuff
 
 git clone --depth 10 -b gh-pages "https://${GITHUB_TOKEN}@github.com/VoxelGamesLib/VoxelGamesLibv2.git" deploy-stuff

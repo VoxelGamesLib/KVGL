@@ -46,8 +46,8 @@ repositories {
 
 // I'm sure there's a method to copy all compileOnly dependencies to the testCompile set
 dependencies {
-    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    testCompile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.21"
+    testCompile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.21"
 
     compileOnly group: 'org.spigotmc', name: 'spigot', version: '1.12.1-R0.1-SNAPSHOT'
     testCompile group: 'org.spigotmc', name: 'spigot', version: '1.12.1-R0.1-SNAPSHOT'
