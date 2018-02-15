@@ -10,6 +10,6 @@ var MapFeature.shouldUnload : Boolean
     set(value) = setShouldUnload(value)
 
 
-fun depend(vararg clazz : KClass<out Feature>) : Array<Class<Any>> { // Not sure why this doesn't coerce the type automatically...
-    return clazz.map { it.java }.toTypedArray() as Array<Class<Any>>
+fun depend(vararg clazz : KClass<out Feature>) : List<Class<out Feature>> { // Not sure why this doesn't coerce the type automatically...
+    return clazz.map { it.java }
 }
