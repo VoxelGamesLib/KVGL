@@ -2,8 +2,8 @@ group 'me.minidigger'
 version '1.0-SNAPSHOT'
 
 dependencies {
-    compileOnly rootProject
-    testCompile rootProject
+    compileOnly project(":VoxelGamesLib")
+    testCompile project(":VoxelGamesLib")
 
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.2.21'
 }
