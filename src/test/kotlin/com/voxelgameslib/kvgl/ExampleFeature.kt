@@ -10,7 +10,7 @@ class ExampleFeature : AbstractFeature() {
     private val log by logByClass<ExampleFeature>()
 
 
-    override fun start() {
+    override fun enable() {
 
         val teamFeature = phase.getFeature<TeamFeature>()
 
