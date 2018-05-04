@@ -5,7 +5,7 @@ dependencies {
     compileOnly project(":VoxelGamesLib")
     testCompile project(":VoxelGamesLib")
 
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.2.30'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: '1.2.41'
 }
 
 apply plugin: 'kotlin'
