@@ -28,14 +28,14 @@ inline fun <reified T : Feature> Game.createFeature(phase: Phase): T {
     return createFeature(T::class.java, phase)
 }
 
-inline fun AbstractGame.buildPhases(first : Phase? = null, block: PhaseBuilder.() -> Unit) {
+inline fun AbstractGame.buildPhases(first: Phase? = null, block: PhaseBuilder.() -> Unit) {
     PhaseBuilder(first, this).apply(block)
 }
 
 
-class PhaseBuilder @PublishedApi internal constructor(first: Phase?, private val absGame : AbstractGame) {
+class PhaseBuilder @PublishedApi internal constructor(first: Phase?, private val absGame: AbstractGame) {
 
-    private var prev : Phase? = first
+    private var prev: Phase? = first
 
     init {
         prev?.let { absGame.activePhase = it }
@@ -45,8 +45,7 @@ class PhaseBuilder @PublishedApi internal constructor(first: Phase?, private val
     operator fun Phase.unaryPlus() {
         if (prev == null) {
             absGame.activePhase = this
-        }
-        else {
+        } else {
             prev?.setNextPhase(this)
         }
 
